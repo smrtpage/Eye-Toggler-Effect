@@ -1,0 +1,193 @@
+:root {
+  --sz: 10vmin;
+  --tr: all 0.5s ease 0s;
+  --c-on-1: #fed501;
+  --c-on-2: #e4bf00;
+  --c-off-1: #224056;
+  --c-off-2: #172c3c;
+  --c-wht-1: #edecf5;
+  --c-wht-2: #eaedef;
+  --c-wht-3: #ccd2d5;
+}
+
+* {
+  box-sizing: border-box;
+  transition: var(--tr);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--c-wht-1),
+    var(--c-wht-2),
+    var(--c-wht-3)
+  );
+}
+
+.toggle {
+  position: relative;
+  width: calc(var(--sz) * 4);
+  height: calc(var(--sz) * 2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  display: none;
+}
+
+label[for="btn"] {
+  position: absolute;
+  width: calc(var(--sz) * 4);
+  height: calc(var(--sz) * 2);
+  background: var(--c-off-1);
+  border-radius: var(--sz);
+  box-shadow: 0 0 0 calc(var(--sz) / 7) var(--c-off-2);
+}
+
+#btn:checked + label {
+  background: var(--c-on-1);
+  box-shadow: 0 0 0 calc(var(--sz) / 7) var(--c-on-2);
+}
+
+label[for="btn"]:before,
+label[for="btn"]:after {
+  content: "OFF";
+  position: absolute;
+  color: var(--c-off-2);
+  left: calc(var(--sz) * -2);
+  top: calc(var(--sz) * 0.55);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(var(--sz) * 0.7);
+  text-shadow: 0 calc(var(--sz) * -0.025) calc(var(--sz) * 0.025) #0008,
+    0 calc(var(--sz) * 0.025) calc(var(--sz) * 0.025) #fff9;
+}
+
+label[for="btn"]:after {
+  content: "ON";
+  color: var(--c-wht-3);
+  position: absolute;
+  left: calc(var(--sz) * 4.65);
+}
+
+#btn:checked + label[for="btn"]:before {
+  color: var(--c-wht-3);
+  text-shadow: 0 calc(var(--sz) * -0.025) calc(var(--sz) * 0.025) #0008,
+    0 calc(var(--sz) * 0.025) calc(var(--sz) * 0.025) #fff9;
+}
+
+#btn:checked + label[for="btn"]:after {
+  color: var(--c-on-2);
+  text-shadow: 0 0 calc(var(--sz) * 0.5) var(--c-on-1),
+    0 calc(var(--sz) * -0.025) calc(var(--sz) * 0.025) #0008,
+    0 calc(var(--sz) * 0.025) calc(var(--sz) * 0.025) #fff9;
+}
+
+.thumb {
+  position: absolute;
+  width: calc(var(--sz) * 2);
+  height: calc(var(--sz) * 2);
+  top: calc(var(--sz) * 0);
+  left: calc(var(--sz) * 0);
+  background: #fff;
+  border-radius: var(--sz);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  overflow: hidden;
+  box-shadow: 0 0 0 calc(var(--sz) / 7) var(--c-wht-1) inset;
+  animation: go-back 1s ease 0s 1;
+}
+
+@keyframes go-back {
+  0% {
+    left: calc(100% - ((var(--sz) * 2)));
+  }
+  100% {
+    left: calc(var(--sz) * 0);
+  }
+}
+
+#btn:checked + label .thumb {
+  transition: var(--tr);
+  left: calc(100% - ((var(--sz) * 2)));
+}
+
+.thumb:before {
+  content: "";
+  position: absolute;
+  width: calc(var(--sz) / 1.75);
+  height: calc(var(--sz) / 1.75);
+  background: radial-gradient(
+    circle at 25% 50%,
+    #fff 0 calc(var(--sz) * 0.05),
+    #000 calc((var(--sz) * 0.05) + 1px) 100%
+  );
+  border-radius: 100%;
+  left: calc(var(--sz) / 3);
+  top: calc(var(--sz) / 1.25);
+  transition: var(--tr);
+  animation: ojo 1s ease 0s;
+}
+
+@keyframes ojo {
+  0% {
+    left: calc(var(--sz) / 3.5);
+    top: calc(var(--sz) / 2.5);
+  }
+  100% {
+    left: calc(var(--sz) / 3);
+    top: calc(var(--sz) / 1.25);
+  }
+}
+
+#btn:checked + label .thumb:before {
+  left: calc(var(--sz) / 3.5);
+  top: calc(var(--sz) / 2.5);
+}
+
+.thumb:after {
+  content: "";
+  position: absolute;
+  width: calc(var(--sz) / 0.5);
+  height: calc(var(--sz) / 0.5);
+  background: linear-gradient(
+    188deg,
+    var(--c-wht-1) 0 calc(var(--sz) * 1.25),
+    #fff0 calc((var(--sz) * 1.25) + 1px) 100%
+  );
+  background-size: 100% 200%;
+  background-position: 50% 0%;
+  transition: var(--tr);
+  animation: parpado 1s ease 0s;
+}
+
+@keyframes parpado {
+  0% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 50% -5%;
+  }
+  75% {
+    background-position: 50% 40%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+#btn:checked + label .thumb:after {
+  background-position: 50% 50%;
+}
